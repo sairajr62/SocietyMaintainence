@@ -12,6 +12,7 @@ import ManageMembers from "./pages/ManageMembers"
 import UploadDocument from "./pages/UploadDocument"
 import AddPayments from "./pages/AddPayments"
 import Dashboard from "./pages/AdminDashboard"
+import AdminExpense from "./pages/AdminExpense"
 
 const AppRoutes = () => {
   const { user } = useAuth();
@@ -73,7 +74,7 @@ const AppRoutes = () => {
           />
           <Route path="upload-documents" element={<UploadDocument />} />
           <Route path="payments" element={<AddPayments/>} />
-          <Route path="expenses" element={<div className="p-4">Expenses handles here</div>} />
+          <Route path="expenses" element={<AdminExpense/>} />
         </Route>
       )}
 
