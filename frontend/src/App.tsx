@@ -10,6 +10,7 @@ import ManageSocieties from "./pages/ManageSocieties"
 import AddMembers from "./pages/AddMembers"
 import ManageMembers from "./pages/ManageMembers"
 import UploadDocument from "./pages/UploadDocument"
+import AddPayments from "./pages/AddPayments"
 
 
 const AppRoutes = () => {
@@ -42,7 +43,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route
             path="dashboard"
-            element={<div className="p-4">Welcome to the SuperAdmin Dashboard fgajgjasgasjdg</div>}
+            element={<div className="p-4">Welcome to the SuperAdmin Dashboard</div>}
           />
           <Route
             path="add-society"
@@ -71,7 +72,7 @@ const AppRoutes = () => {
             element={<ManageMembers />}
           />
           <Route path="upload-documents" element={<UploadDocument />} />
-          <Route path="payments" element={<div className="p-4">Payments handles here</div>} />
+          <Route path="payments" element={<AddPayments/>} />
           <Route path="expenses" element={<div className="p-4">Expenses handles here</div>} />
         </Route>
       )}
