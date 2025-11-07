@@ -11,8 +11,9 @@ import AddMembers from "./pages/AddMembers"
 import ManageMembers from "./pages/ManageMembers"
 import UploadDocument from "./pages/UploadDocument"
 import AddPayments from "./pages/AddPayments"
-import Dashboard from "./pages/AdminDashboard"
+import AdminDashboard from "./pages/AdminDashboard"
 import AdminExpense from "./pages/AdminExpense"
+import PaymentHandler from "./pages/PaymentHandler"
 
 const AppRoutes = () => {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route
             path="dashboard"
-            element={<div className="p-4">Welcome to the SuperAdmin Dashboard</div>}
+            element={<AdminDashboard/>}
           />
           <Route
             path="add-society"
@@ -62,7 +63,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route
             path="dashboard"
-            element={<Dashboard/>}
+            element={<AdminDashboard/>}
           />
           <Route
             path="add-members"
@@ -82,7 +83,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route
             path="dashboard"
-            element={<div className="p-4">Welcome to the Member Dashboard</div>}
+            element={<AdminDashboard/>}
           />
           <Route
             path="complaint-form"
@@ -90,7 +91,7 @@ const AppRoutes = () => {
           />
           <Route
             path="my-payments"
-            element={<div className="p-4">My Payments handles here</div>}
+            element={<PaymentHandler/>}
           />
         </Route>
       )}
