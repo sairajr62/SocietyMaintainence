@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {MdPayments} from 'react-icons/md';
 
 export default function PaymentForm() {
   const [form, setForm] = useState({
@@ -19,27 +20,29 @@ export default function PaymentForm() {
   };
 
   return (
-    <div className="flex justify-center py-10">
+    <div className="flex flex-col h-full p-0.5">
       <form
         onSubmit={submit}
-        className="w-full max-w-md space-y-6 rounded-2xl border p-6 shadow-sm bg-white"
+        className="w-full h-full flex flex-col max-w-4xl bg-card rounded-sm px-6 py-4 mx-auto"
       >
-        <h1 className="text-center text-2xl font-semibold">Payment Form</h1>
-
-        <div className="space-y-1">
-          <label className="font-medium">Form Name</label>
+         <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                                <MdPayments className="text-primary" />
+                                Payment Form
+                            </h2>
+        <p className="text-sm text-slate-500 mt-1">Share Your Payments with Society Memebers</p>
+        <div className="space-y-6 py-6">
+          <label className="block text-sm font-medium text-slate-700 mb-1">Payment Title</label>
           <input
             type="text"
             value={form.formName}
             onChange={(e) => update("formName", e.target.value)}
-            placeholder="Enter The Form Name"
+            placeholder="Enter The Payment Title"
             required
-            className="w-full rounded-xl border p-3"
-          />
+            className="w-full rounded-sm border px-3 py-2 text-sm focus:outline-none focus:ring-2 transition"/>
         </div>
 
         <div className="space-y-1">
-          <label className="font-medium">Issue Date</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Issue Date</label>
           <input
             type="date"
             value={form.issueDate}
@@ -50,7 +53,7 @@ export default function PaymentForm() {
         </div>
 
         <div className="space-y-1">
-          <label className="font-medium">Due Date</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
           <input
             type="date"
             value={form.dueDate}
@@ -60,8 +63,8 @@ export default function PaymentForm() {
           />
         </div>
 
-        <div className="space-y-1">
-          <label className="font-medium">Amount to Pay</label>
+        <div className="space-y-6 py-6">
+          <label className="block text-sm font-medium text-slate-700 mb-1">Amount to Pay</label>
           <input
             type="number"
             min="0"
@@ -75,19 +78,19 @@ export default function PaymentForm() {
         </div>
 
         <div className="space-y-1">
-          <label className="font-medium">Description</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
           <textarea
             value={form.description}
             placeholder="Enter the Description"
             onChange={(e) => update("description", e.target.value)}
             required
-            className="w-full rounded-xl border p-3 h-24"
+            className="w-full rounded-sm border px-3 py-2 text-sm focus:outline-none focus:ring-2 transition"
           />
         </div>
 
         <button
-          type="submit"
-          className="w-full rounded-xl border bg-gray-100 py-3 font-medium hover:bg-gray-200"
+          type="button"
+          className="p-1 hover:bg-slate-200 rounded-sm"
         >
           Submit Payment
         </button>

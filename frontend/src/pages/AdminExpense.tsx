@@ -20,7 +20,7 @@ export default function ExpenseTracker() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="rounded-2xl border p-6 shadow-sm bg-white">
           <p className="text-gray-500">Total Expenses</p>
-          <p className="text-3xl font-semibold mt-2">${total}</p>
+          <p className="text-3xl font-semibold mt-2">₹{total}</p>
         </div>
 
         <div className="rounded-2xl border p-6 shadow-sm bg-white">
@@ -64,7 +64,7 @@ export default function ExpenseTracker() {
             {expenses.map((e, i) => (
               <tr key={i} className="border-b last:border-none">
                 <td className="p-2">{e.category}</td>
-                <td className="p-2 font-semibold">${e.amount}</td>
+                <td className="p-2 font-semibold">₹{e.amount}</td>
               </tr>
             ))}
           </tbody>
