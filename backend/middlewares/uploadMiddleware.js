@@ -1,6 +1,6 @@
 import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import cloudinary from '../config/coludinary.js';
+import cloudinary from '../config/cloudinary.js';
 
 // Configure Cloudinary storage for PDFs or any file type
 const storage = new CloudinaryStorage({
