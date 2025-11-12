@@ -149,7 +149,6 @@ Please change your password after first login. If you did not request this, cont
 
 
 
-
 export const createSociety = async (req, res) => {
   try {
     const { societyName, address, city, state, pinCode, managerName, managerEmail, managerPhone, managerPassword } = req.body;
@@ -311,3 +310,56 @@ export const addSocietyMembers = async (req, res) => {
     return res.status(500).json({ message: 'Server error', error: error.message });
   }
 }
+
+
+export const getSocietyMembers = async (req, res) => {
+  try {
+    const { managerId } = req.params;
+
+    // 1️⃣ Validate managerId
+    if (!managerId) {
+      return res.status(400).json({ message: 'Manager ID is required' });
+    }
+
+    // 2️⃣ Find manager and validate existence
+    const manager = await User.findById(managerId);
+    if (!manager) {
+      return res.status(404).json({ message: 'Manager not found' });
+    }
+
+    // 3️⃣ Find society managed by this manager
+    const society = await Society.findOne({ manager: manager._id }).populate({
+      path: 'members',
+      select: '-password -refreshToken -__v',
+    });
+
+    if (!society) {
+      return res.status(404).json({ message: 'Society not found for this manager' });
+    }
+
+    // 5️⃣ Return members
+    res.status(200).json({
+      success: true,
+      societyName: society.name,
+      totalMembers: society.members.length,
+      members: society.members,
+    });
+
+  } catch (error) {
+    console.error('Error fetching society members:', error);
+    res.status(500).json({
+      message: 'Server error while fetching society members',
+      error: error.message,
+    });
+  }
+};
+
+export const getAllSocieties = async (req, res) => {
+  try {
+    const societies = await Society.find().populate('manager', 'name email phone').sort({ createdAt: -1 }).exec()
+    if (societies.length === 0) return res.status(204).json({ message: "No Societies Found" })
+    return res.status(200).json({ message: "Societies Found Successfully", societies })
+  } catch (error) {
+    return res.status(400).json({ message: "Error Fetching Societies", error: error.message })
+  }
+} 

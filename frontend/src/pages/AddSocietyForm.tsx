@@ -91,7 +91,7 @@ const AddSocietyForm: React.FC = () => {
         <div className="lg-flex flex-col h-full p-0.5">
             <form onSubmit={handleSubmit} className="w-full h-full flex flex-col space-y-6 max-w-7xl bg-card rounded-sm px-6 py-4">
                 {/* Header */}
-                <div className="border-b border-slate-200 pb-4">
+                <div className="pb-0">
                     <h2 className="text-2xl font-bold text-slate-900">Add New Society</h2>
                     <p className="text-sm text-slate-500 mt-1">Create a new society and set up manager credentials.</p>
                 </div>
@@ -106,7 +106,7 @@ const AddSocietyForm: React.FC = () => {
                         <h3 className="text-lg font-bold text-slate-900">Society Details</h3>
                     </div>
                     <div className="bg-slate-50/50 p-4 rounded-sm border border-slate-100">
-                        <div className="lg:grid grid-cols-2 gap-6 space-y-4">
+                        <div className="lg:grid grid-cols-2 gap-6 space-y-4 lg:space-y-0">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1">Society Name</label>
                                 <input
