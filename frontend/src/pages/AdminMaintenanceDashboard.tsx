@@ -86,7 +86,7 @@ export default function AdminMaintenanceDashboard() {
       </div>
 
       {/* Top Stats */}
-      <div className="grid grid-cols-2  lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
         <div className="bg-white rounded-lg shadow-md p-8 border-l-4 border-orange-500 hover:shadow-lg transition">
           <div className="flex items-center justify-between">
             <div>
@@ -158,7 +158,7 @@ export default function AdminMaintenanceDashboard() {
       {/* Overview Tab */}
       {activeTab === 'overview' && (
         <>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1  xl:grid-cols-2 gap-8">
           {/* Complaints Trend */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">

@@ -88,10 +88,10 @@ const Layout: React.FC = () => {
                 <span>{link.label}</span>
               </NavLink>
             ))}
-            <div className='p-2'>
+            <div className='mt-1'>
               <button
                 onClick={() => logout()}
-                className='flex justify-center items-center px-4 py-2 text-lg bg-red-500 text-card w-full'
+                className='flex justify-start items-center px-4 py-2 text-lg bg-red-500 text-card w-full'
               >
                 <BiLogOut className='text-xl mr-3' />
                 <span>Logout</span>
@@ -101,12 +101,12 @@ const Layout: React.FC = () => {
         </div>
 
         {/* Main layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start lg:h-[calc(100vh-5.5rem)]">
+        <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-start lg:h-[calc(100vh-5.5rem)]">
           <aside className="hidden lg:block lg:col-span-1 h-full ">
             <Sidebar />
           </aside>
 
-          <main className="pt-10 lg:pt-0 col-span-1 md:col-span-4 bg-card h-full overflow-hidden">
+          <main className="pt-10 lg:pt-0 col-span-1 lg:col-span-3 xl:col-span-4 bg-card h-full overflow-hidden">
             {/* Outlet renders route content */}
             <div className="h-full overflow-y-auto">
               <Outlet />
