@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import societyRoutes from './routes/society.routes.js';
 import documentRoutes from './routes/document.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
+import razorpayRoutes from './routes/razorpay.routes.js';
 
 import path from 'path'
 
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/society', societyRoutes);
 app.use('/api/document', documentRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/razorpay', razorpayRoutes);
 
 const PORT = process.env.PORT || 5000;
 

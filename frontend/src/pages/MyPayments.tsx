@@ -18,6 +18,7 @@ interface Payments {
 const MyPayments = () => {
   const { user } = useAuth();
   const [payments, setPayments] = useState<Payments[] | []>([]);
+  const [reloadPayments, setReloadPayments] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchMemberPayments = async () => {
@@ -35,10 +36,54 @@ const MyPayments = () => {
       }
     }
     fetchMemberPayments();
-  }, [])
+  }, [reloadPayments])
 
   const pending = payments.filter((p) => p.status === "pending");
   const paid = payments.filter((p) => p.status === "paid");
+
+
+  const handlePay = async (payment) => {
+    try {
+      const res = await axios.post(`${baseUrl}/razorpay/create-order`, {
+        amount: payment.amount,
+        paymentStatusId: payment.id
+      })
+
+      const { key, orderId, amount } = res.data;
+
+      const options = {
+        key,
+        amount,
+        currency: "INR",
+        title: payment.title,
+        order_id: orderId,
+        handler: async (response) => {
+          await axios.post(`${baseUrl}/razorpay/verify-payment`, {
+            ...response,
+            paymentStatusId: payment.id,
+            amount: payment.amount,
+          });
+          alert("Payment Successful!")
+          setReloadPayments(true)
+        },
+        prefill: {
+          name: user?.name,
+          email: user?.email,
+          phone: user?.phone
+        },
+        theme: {
+          color: "#4f46e5"
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.log("Error While Paying on Razorpay: ", error)
+      alert("Error While Paying on Razorpay")
+    }
+  }
+
 
   return (
     <div className="flex flex-col h-full py-5 px-6">
@@ -96,11 +141,15 @@ const MyPayments = () => {
                     <td className="px-3 py-3 font-medium">₹{p.amount}</td>
                     <td className="px-3 py-3">
                       <span className="px-2 py-1 rounded text-xs font-semibold bg-yellow-100 text-yellow-700">
-                        Pending
+                        {p.status}
                       </span>
                     </td>
                     <td className="px-3 py-3">
-                      <button className="bg-green-500 text-card px-2 py-1 rounded">pay now</button>
+                      <button
+                        onClick={() => handlePay(p)}
+                        className="bg-green-500 text-card px-2 py-1 rounded">
+                        pay now
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -128,25 +177,37 @@ const MyPayments = () => {
             <thead className="bg-primary text-white">
               <tr>
                 <th className="px-3 py-2 text-left whitespace-nowrap">Sr. No.</th>
-                <th className="px-3 py-2 text-left whitespace-nowrap">Payer</th>
-                <th className="px-3 py-2 text-left whitespace-nowrap">Amount</th>
+                <th className="px-3 py-2 text-left whitespace-nowrap">Title</th>
+                <th className="px-3 py-2 text-left whitespace-nowrap">Description</th>
+                <th className="px-3 py-2 text-left whitespace-nowrap">IssuedDate</th>
+                <th className="px-3 py-2 text-left whitespace-nowrap">DueDate</th>
                 <th className="px-3 py-2 text-left whitespace-nowrap">Status</th>
+                <th className="px-3 py-2 text-left whitespace-nowrap">PaidAt</th>
               </tr>
             </thead>
             <tbody>
               {paid.length > 0 ? (
                 paid.map((p, i) => (
                   <tr
-                    key={p.id}
+                    key={p._id}
                     className={`${i % 2 ? "bg-primary/5" : "bg-white"}`}
                   >
                     <td className="px-3 py-3">{i + 1}.</td>
-                    <td className="px-3 py-3 text-nowrap">{p.payer}</td>
-                    <td className="px-3 py-3 font-medium">₹{p.amount}</td>
+                    <td className="px-3 py-3 text-nowrap">{p.title}</td>
+                    <td className="px-3 py-3 font-medium">{p.description}</td>
+                    <td className="px-3 py-3 font-medium">
+                      {p?.issueDate ? new Date(p.issueDate).toLocaleDateString("en-IN") : "--"}
+                    </td>
+                    <td className="px-3 py-3 font-medium">
+                      {p?.dueDate ? new Date(p.dueDate).toLocaleDateString("en-IN") : "--"}
+                    </td>
                     <td className="px-3 py-3">
                       <span className="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-700">
-                        paid
+                        {p.status}
                       </span>
+                    </td>
+                   <td className="px-3 py-3 font-medium">
+                      {p?.paidAt ? new Date(p.paidAt).toLocaleDateString("en-IN") : "--"}
                     </td>
                   </tr>
                 ))
