@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MdPayments } from "react-icons/md";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaChevronDown, FaChevronUp, FaEnvelope, FaPhone } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
@@ -88,10 +88,10 @@ const ManagePayments = () => {
                 {payments.map((payment) => (
                     <div
                         key={payment._id}
-                        className="border border-slate-200 rounded-xl shadow-sm bg-white overflow-hidden"
+                        className="border border-slate-200 rounded shadow-sm bg-white overflow-hidden"
                     >
                         {/* Card Header */}
-                        <div className="flex justify-between items-center px-5 py-4 cursor-pointer hover:bg-slate-50 transition"
+                        <div className="flex justify-between items-center px-5 py-4 cursor-pointer transition"
                             onClick={() => {
                                 toggleExpand(payment._id)
                                 getAllPaidMembers(payment._id)
@@ -110,9 +110,9 @@ const ManagePayments = () => {
                             </div>
                             <button className="text-slate-600 hover:text-slate-900 transition-all">
                                 {expanded === payment._id ? (
-                                    <FaChevronUp className="w-5 h-5" />
+                                    <FaCaretUp className="w-6 h-6 flex-shrink-0 text-primary" />
                                 ) : (
-                                    <FaChevronDown className="w-5 h-5" />
+                                    <FaCaretDown className="w-6 h-6 flex-shrink-0 text-primary" />
                                 )}
                             </button>
                         </div>
@@ -143,8 +143,8 @@ const ManagePayments = () => {
                                                     <td className="px-3 py-3">{i + 1}.</td>
                                                     <td className="px-3 py-3 text-nowrap text-sm">{m.payerName}</td>
                                                     <td className="px-3 py-3 text-nowrap text-sm">
-                                                        <p>{m.payerPhone}</p>
-                                                        <p>{m.payerEmail}</p>
+                                                        <p className="flex items-center"><FaPhone className="mr-2" />{m.payerPhone}</p>
+                                                        <p className="flex items-center"><FaEnvelope className="mr-2" />{m.payerEmail}</p>
                                                     </td>
                                                     <td className="px-3 py-3">{m.payerFlat}</td>
                                                     <td className="px-3 py-3">
@@ -157,10 +157,12 @@ const ManagePayments = () => {
                                                             {m.status}
                                                         </span>
                                                     </td>
-                                                    <td className="px-3 py-3">₹{m.amountPaid}</td>
-                                                        <td className="px-3 py-3 font-medium">
-                                                            {m.paidAt ? new Date(m.paidAt).toLocaleDateString("en-IN") : "--"}
-                                                        </td>
+                                                    <td className="px-3 py-3">
+                                                        {m.amountPaid ? <p>₹{m.amountPaid}</p> : '--'}
+                                                    </td>
+                                                    <td className="px-3 py-3 font-medium">
+                                                        {m.paidAt ? new Date(m.paidAt).toLocaleDateString("en-IN") : "--"}
+                                                    </td>
 
                                                 </tr>
                                             ))}
@@ -172,6 +174,12 @@ const ManagePayments = () => {
                     </div>
                 ))}
             </div>
+
+            {payments.length === 0 &&
+                <div className="flex w-full justify-center items-start">
+                    No payments created by you
+                </div>
+            }
         </div>
     );
 };

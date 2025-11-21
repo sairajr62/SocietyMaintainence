@@ -71,10 +71,10 @@ const AddSocietyForm: React.FC = () => {
 
         try {
             const response = await axios.post(`${baseUrl}/society/create-society`, form);
-            if (response.status !== 200) {
-                console.log('Submit society:', form);
-                setSuccess('Society created successfully. Manager credentials have been set.');
+            if (response.status === 201) {
+                // console.log('Submit society:', form);
                 alert(response.data?.message || 'Society and Manager created successfully.');
+                setSuccess('Society created successfully. Manager credentials have been set.');
                 setForm(defaultState);
             } else {
                 alert('Failed to create society. Please try again.');

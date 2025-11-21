@@ -84,7 +84,6 @@ export const getPaidMembers = async (req, res) => {
 
         // Filter paid members only
         const paidMembers = paymentStatuses
-            .filter(p => p.status === "paid")
             .map(p => ({
                 id: p._id,
                 paymentId: p.paymentId,
